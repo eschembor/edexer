@@ -1,6 +1,6 @@
 <head>
   <meta charset="utf-8">
-  <title>Random Workout</title>
+  <title>My Random Workout</title>
   <script src="libs/jquery-1.10.2.js"></script>
   <script src="main.js"></script>
   <link rel="stylesheet" href="main.css">
@@ -8,17 +8,20 @@
 
 <body>
 
-<div class='header'>Eds Workout</div>
+<div class='header'>My Random Workout</div>
 <div class='counter'></div>
+<div class='skips'></div>
 
-<div class='nextExercise'>
+<div class='nextExercise hideWhenNoEx'>
 	<div class='exercise'></div>
 	<div class='reps'></div>
 </div>
 
 <div class='actions'>
-	<button onclick="ex.showNext()">Did it - whats next?</button>
-	<button onclick="ex.end()">I'm done!</button>
+	<button class="hideWhenNoEx" onclick="ex.done();">Did it</button>
+	<button class="hideWhenNoEx" onclick="ex.skip()">Skip it</button>
+	<button class="hideWhenNoEx" onclick="ex.end()">I'm done!</button>
+	<button class="hideWhenEx" onclick="ex.start()">Begin Workout</button>
 </div>
 
 </body>

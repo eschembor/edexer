@@ -1,9 +1,32 @@
 var ex = {
 	exercises: [],
 	doneCount: -1,
-	incCount: function() {
-		this.doneCount++;
+	skipCount: 0,
+
+	done: function () {
+		this.incCount (true);
+		this.showNext();
 	},
+
+	skip: function () {
+		this.incCount (false);
+		this.showNext();
+	},
+
+	incCount: function (wasDone) {
+		this.doneCount += wasDone ? 1 : 0;
+		this.skipCount += !wasDone ? 1 : 0;
+		this.showStats();		
+	},
+
+	start: function () {
+		this.doneCount = 0;
+		this.skipCount = 0;
+		$(".hideWhenNoEx").show();
+		$(".hideWhenEx").hide();
+		this.showNext(true);
+	},
+
 	getNext: function () {
 		var numExercises = this.exercises.length,
 			selectedReps,
@@ -17,9 +40,6 @@ var ex = {
 	},
 
 	showNext: function() {
-		this.incCount();
-		$(".counter").html("Completed Sets: " + this.doneCount);
-
 		for (var i=0; i < 20; i++) {
 			window.setTimeout (function() {
 				console.log ("showing");
@@ -28,6 +48,21 @@ var ex = {
 				$(".reps").html (''+nextExercise.reps + ' reps');		
 			}, i*50);
 		}
+	},
+
+	showStats: function () {
+		$(".counter").html("Completed Sets: " + this.doneCount);
+		$(".skips").html("Skipped: " + this.skipCount);
+
+	},
+
+	end: function () {
+		alert ("You completed: " + this.doneCount + " and skipped: " + this.skipCount);
+		this.doneCount = 0;
+		this.skipCount = 0;
+		this.showStats();
+		$(".hideWhenNoEx").hide();
+		$(".hideWhenEx").show();
 	}
 };
 
